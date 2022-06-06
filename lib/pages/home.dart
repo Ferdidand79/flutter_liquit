@@ -11,53 +11,90 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final controller = LiquidController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("App de liquido"),
       ),
-      body: LiquidSwipe(
-        pages: [
-          Container(
-            color: Colors.black,
-            child: Center(
-              child: Text(
-                'Pagina 1',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 40,
-                ),
-                ),
+      body: Stack(
+        children: [
+          LiquidSwipe(
+            liquidController: controller,
+            enableSideReveal: true,
+            slideIconWidget: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
             ),
+            pages: [
+              Container(
+                color: Colors.black,
+                child: Center(
+                  child: Text(
+                    'Pagina 1',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 40,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                color: Colors.blue.shade800,
+                child: Center(
+                    child: Text(
+                  'Pagina 2',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 40,
+                  ),
+                )),
+              ),
+              Container(
+                color: Colors.deepPurple.shade900,
+                child: Center(
+                    child: Text(
+                  'Pagina 3',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 40,
+                  ),
+                )),
+              ),
+            ],
           ),
+          Positioned(
+            bottom: 0,
+            left: 16,
+            right: 32,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    controller.jumpToPage(
+                        page: 2); //dependiendo de la final menos 1
+                  },
+                  child: Text('SKIP'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    final page = controller.currentPage + 1;
 
-          Container(
-            color: Colors.blue.shade800,
-            child: Center(
-              child: Text(
-                'Pagina 2',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 40,
+                    controller.animateToPage(
+                      page: page > 4 ? 0 : page,
+                      duration: 400,
+                    );
+                  },
+                  child: Text('NEXT'),
                 ),
-                )
+              ],
             ),
           ),
-
-          Container(
-            color: Colors.deepPurple.shade900,
-            child: Center(
-              child: Text(
-                'Pagina 3',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 40,
-                ),
-                )
-            ),
-          ),
-        ],),
+        ],
+      ),
     );
   }
 }
