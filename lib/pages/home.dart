@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                     controller.jumpToPage(
                         page: 2); //dependiendo de la final menos 1
                   },
-                  child: Text('SKIP'),
+                  child: Text('ÚLTIMO'),
                 ),
                 AnimatedSmoothIndicator(
                   activeIndex: controller.currentPage,
@@ -104,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                       duration: 400,
                     );
                   },
-                  child: Text('NEXT'),
+                  child: Text('SIGUIENTE'),
                 ),
               ],
             ),
